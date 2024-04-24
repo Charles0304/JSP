@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<% int col = Integer.parseInt(request.getParameter("col"));
+	if(col>9) col = 9;%>
+	<% 
+	for(int i=0;i<9/col;i++){
+		out.print("<table>");
+		for(int j=1;j<=9;j++){
+			out.print("<tr>");
+			int last=i*col+col+2;
+			if(last>9) last = 10;
+			for(int k=i*col+2;k<last;k++){
+				out.print(String.format("<td>%2d * %2d = %2d&nbsp</td>",k,j,j*k));
+			}
+			out.print("</tr>");
+			//out.print("<br/>");
+		}
+		out.print("</table>");
+		out.print("<br/>");
+	}
+	%>
+</body>
+</html>
