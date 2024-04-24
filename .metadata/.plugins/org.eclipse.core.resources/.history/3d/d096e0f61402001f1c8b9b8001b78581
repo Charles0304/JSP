@@ -111,7 +111,7 @@ dao.close();
 		<tr align = "center">
 			<td>
 				<%
-				String urlPlus="?";
+				String urlPlus="";
 				if(searchField!=null&&searchWord!=null)
 					urlPlus = "?searchField="+searchField+"&searchWord="+searchWord+"&";
 				%>

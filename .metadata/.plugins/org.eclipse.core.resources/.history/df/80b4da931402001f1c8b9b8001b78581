@@ -111,9 +111,7 @@ dao.close();
 		<tr align = "center">
 			<td>
 				<%
-				String urlPlus="?";
-				if(searchField!=null&&searchWord!=null)
-					urlPlus = "?searchField="+searchField+"&searchWord="+searchWord+"&";
+					String urlPlus = "?searchField="+searchField+"&searchWord="+searchWord+"1&";
 				%>
 				<%= BoardPage.pagingStr(totalCount,pageSize, blockPage,pageNum, request.getRequestURI()+urlPlus) %>
 			</td>

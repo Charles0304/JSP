@@ -110,7 +110,12 @@ dao.close();
 	<table border = "1" width = "90%">
 		<tr align = "center">
 			<td>
-				<%= BoardPage.pagingStr(totalCount,pageSize, blockPage,pageNum, request.getRequestURI()) %>
+				<%
+				String urlPlus="?";
+				if(searchField!=null&&searchWord!=null)
+					urlPlus = "?searchField="+searchField+"&searchWord="+searchWord+"&";
+				%>
+				<%= BoardPage.pagingStr(totalCount,pageSize, blockPage,pageNum, request.getRequestURI()+urlPlus) %>
 			</td>
 			<!-- 글쓰기 버튼 -->
 			<td><button type = "button" onclick="location.href = 'Write.jsp';">글쓰기
