@@ -70,23 +70,18 @@ public class BoardDAO extends JDBConnect {
 	public List<BoardDTO> selectListPage(Map<String, Object> map){
 		List<BoardDTO> bbs = new Vector<BoardDTO>();
 		
-		String query = "select * from ( "
-				+" select Tb.*, ROWNUM rNum from ( "
-				+"   select * from board ";
+		String query = "select * from board ";
 		if(map.get("searchWord")!=null) {
 			query += " where "+map.get("searchField")+" "
 					+" like '%"+map.get("searchWord")+"%' ";
 		}
-		query+=" order by num desc "
-				+"   ) Tb "
-				+" ) "
-				+ " where rNum between ? and ?";
+		query+=" order by num desc limit ?,?";
 		
 		try {
 			psmt = con.prepareStatement(query);
-			psmt.setString(1, map.get("start").toString());
-			psmt.setString(2, map.get("end").toString());
-			rs = psmt.executeQuery(query);
+			psmt.setInt(1, (int)map.get("start"));
+			psmt.setInt(2, (int)map.get("pageSize"));
+			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
