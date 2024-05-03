@@ -113,4 +113,59 @@ public class MVCBoardDAO extends JDBConnect {
 		}
 		return dto;
 	}
+	public void updateVisitCount(String idx) {
+		String query = "update mvcboard set "
+				+" visitcount=visitcount+1 "
+				+" where idx=?";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, idx);
+			psmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("게시물 조회수 증가 중 예외 발생");
+			e.printStackTrace();
+		}
+	}
+	public void downCountPlus(String idx) {
+		String sql = "update mvcboard set "
+				+" downcount=downcount+1 "
+				+" where idx=? ";
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			psmt.executeUpdate();
+		}catch(Exception e) {}
+	}
+	public boolean confirmPassword(String pass, String idx) {
+		boolean isCorr = true;
+		try {
+			String sql = "select count(*) from mvcboard where pass=? and idx=?";
+			psmt=con.prepareStatement(sql);
+			psmt.setString(1, pass);
+			psmt.setString(2, idx);
+			rs=psmt.executeQuery();
+			rs.next();
+			if(rs.getInt(1)==0) {
+				isCorr=false;
+			}
+		}catch(Exception e) {
+			isCorr = false;
+			e.printStackTrace();
+		}
+		return isCorr;
+	}
+	public int deletePost(String idx) {
+		int result = 0;
+		try {
+			String query = "delete from mvcboard where idx=?";
+			psmt=con.prepareStatement(query);
+			psmt.setString(1, idx);
+			result=psmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("게시물 삭제 중 예외 발생");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
